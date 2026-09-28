@@ -1,0 +1,503 @@
+<!doctype html>
+<html lang="en">
+<!--
+DIRECTION CONTRACT
+THESIS: A tradesman's notice in the back pages of a daily, not a developer's
+  landing page. Refuses the dark-mode hero, the icon-card grid, the skills bar.
+OWN-WORLD: Newsprint grey ground, dense blue-black ink, one print red printed
+  slightly off register. Heavy column rules, condensed agate, reference numbers,
+  box ads, a reply coupon. Arabic set natively beside English, never flipped.
+STORY: A firm owner sees one real job, itemised and measured, in a form they
+  have read their whole life — and replies to the box number.
+FIRST VIEWPORT: Full-width nameplate, dateline rule, one standfirst line, then
+  the lead box ad with the live client URL and the reply action inside it.
+FORM: Arabic daily classifieds. Candidate 5 of 7 (seed 58a4ea6b), staged as the
+  classified notice page rather than the editorial feature spread.
+-->
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ahmed Khalil — Bilingual websites for firms, built in Cairo</title>
+<meta name="description" content="I build bilingual English/Arabic websites for firms, and fix the things that quietly break on them: mail that lands in spam, menus that fail on iPhone, pages search engines never index. One live client site, itemised and measured.">
+<meta name="author" content="Ahmed Khalil">
+<meta property="og:title" content="Ahmed Khalil — Bilingual websites for firms, built in Cairo">
+<meta property="og:description" content="One live client site, itemised and measured. Bilingual English/Arabic, built to not quietly break.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Noto+Naskh+Arabic:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#dcd8cd;
+    --paper-deep:#d0ccbf;
+    --ink:#15181e;
+    --ink-soft:#464b54;
+    --spot:#b81f10;
+    --spot-ghost:#d8604f;
+    --rule:#15181e;
+    --gutter:clamp(1rem,4vw,2.5rem);
+    --measure:68ch;
+  }
+  *,*::before,*::after{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"Archivo",system-ui,sans-serif;
+    font-size:17px;
+    line-height:1.55;
+    /* Newsprint tooth: two fine screens, not a photographic texture. */
+    background-image:
+      repeating-linear-gradient(0deg,rgba(21,24,30,.030) 0 1px,transparent 1px 3px),
+      repeating-linear-gradient(90deg,rgba(21,24,30,.018) 0 1px,transparent 1px 4px);
+  }
+  .wrap{max-width:1180px;margin:0 auto;padding:0 var(--gutter)}
+
+  /* ---------- nameplate ---------- */
+  .plate{padding-top:clamp(1.25rem,4vw,2.5rem)}
+  .plate__plateline{
+    display:flex;justify-content:space-between;gap:1rem;
+    font-stretch:80%;font-size:.72rem;font-weight:600;
+    letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);
+    border-bottom:1px solid var(--rule);padding-bottom:.45rem;
+  }
+  .plate__plateline span:last-child{text-align:right}
+  h1{
+    margin:.35em 0 0;
+    font-stretch:62%;font-weight:900;
+    font-size:clamp(3.2rem,15.5vw,10.5rem);
+    line-height:.82;letter-spacing:-.02em;text-transform:uppercase;
+    /* The press coming up to register: the red lies off the black, then lands. */
+    position:relative;
+  }
+  /* The red plate lies off the black, then lands in register. Drawn as a
+     pseudo-element so the name is never duplicated for assistive tech. */
+  h1::after{
+    content:attr(data-name);
+    position:absolute;inset:0;color:var(--spot-ghost);
+    transform:translate(5px,3px);opacity:.85;
+    mix-blend-mode:multiply;pointer-events:none;
+    animation:register 1.5s cubic-bezier(.16,.84,.3,1) .25s forwards;
+  }
+  @keyframes register{to{transform:translate(0,0);opacity:0}}
+  .plate__rules{border-top:4px solid var(--rule);border-bottom:1px solid var(--rule);height:5px;margin-top:.5rem}
+  .standfirst{
+    margin:1.1rem 0 0;max-width:34ch;
+    font-size:clamp(1.15rem,3.6vw,1.55rem);line-height:1.3;font-weight:600;
+  }
+  .standfirst em{font-style:normal;background:var(--spot);color:#f4f1ea;padding:0 .22em;
+    box-decoration-break:clone;-webkit-box-decoration-break:clone}
+  .plate__meta{
+    margin:.85rem 0 1.6rem;font-size:.9rem;color:var(--ink-soft);max-width:46ch;
+  }
+
+  /* ---------- section rules ---------- */
+  .band{border-top:3px solid var(--rule);margin-top:2.6rem;padding-top:.4rem}
+  .band__head{
+    display:flex;align-items:baseline;justify-content:space-between;gap:1rem;
+    font-stretch:78%;font-weight:800;text-transform:uppercase;
+    letter-spacing:.1em;font-size:.82rem;
+    border-bottom:1px solid var(--rule);padding-bottom:.4rem;
+  }
+  .band__head .ref{color:var(--spot);white-space:nowrap}
+
+  /* ---------- the lead notice ---------- */
+  .notice{
+    border:3px solid var(--ink);margin-top:1.4rem;background:var(--paper-deep);
+  }
+  .notice__bar{
+    background:var(--spot);color:#f4f1ea;padding:.5rem .9rem;
+    display:flex;flex-wrap:wrap;gap:.35rem 1rem;align-items:baseline;
+    font-stretch:78%;font-weight:800;text-transform:uppercase;letter-spacing:.09em;font-size:.82rem;
+  }
+  .notice__bar .live::before{content:"";display:inline-block;width:.5em;height:.5em;
+    background:#f4f1ea;border-radius:50%;margin-inline-end:.45em;vertical-align:.08em}
+  .notice__body{padding:clamp(1rem,3.5vw,1.9rem)}
+  .notice__client{
+    font-stretch:70%;font-weight:900;text-transform:uppercase;
+    font-size:clamp(1.8rem,6.5vw,3.4rem);line-height:.92;margin:0;
+  }
+  .notice__sub{margin:.5rem 0 0;color:var(--ink-soft);font-size:.98rem}
+  .notice__link{
+    display:inline-flex;align-items:center;min-height:44px;margin-top:.9rem;
+    font-weight:800;font-size:1.05rem;color:var(--ink);
+    text-decoration:underline;text-decoration-thickness:3px;text-underline-offset:4px;
+    text-decoration-color:var(--spot);
+  }
+  .notice__link:hover{background:var(--spot);color:#f4f1ea;text-decoration-color:#f4f1ea}
+
+  /* ---------- itemised findings ---------- */
+  .items{list-style:none;margin:1.5rem 0 0;padding:0;border-top:1px solid var(--rule)}
+  .item{
+    display:grid;grid-template-columns:2.6rem 1fr;gap:0 .9rem;
+    padding:.95rem 0;border-bottom:1px solid rgba(21,24,30,.28);
+  }
+  .item__no{
+    font-stretch:70%;font-weight:900;font-size:1.5rem;line-height:1;
+    color:var(--spot);font-variant-numeric:tabular-nums;
+  }
+  .item__what{margin:0;font-weight:700;font-size:1.06rem;line-height:1.3}
+  .item__how{margin:.35rem 0 0;color:var(--ink-soft);font-size:.95rem;max-width:60ch}
+  .item__result{
+    margin:.5rem 0 0;display:inline-block;
+    font-stretch:78%;font-weight:800;text-transform:uppercase;letter-spacing:.07em;
+    font-size:.76rem;border:2px solid var(--ink);padding:.18rem .5rem;
+  }
+
+  /* ---------- columns ---------- */
+  .cols{margin-top:1.3rem}
+  @media (min-width:900px){
+    .cols{column-count:2;column-gap:3rem;column-rule:1px solid rgba(21,24,30,.35)}
+    .cols > *{break-inside:avoid}
+  }
+  .entry{margin:0 0 1.15rem;padding:0}
+  .entry__t{
+    margin:0;font-stretch:78%;font-weight:800;text-transform:uppercase;
+    letter-spacing:.06em;font-size:.86rem;
+  }
+  .entry__d{margin:.25rem 0 0;color:var(--ink-soft);font-size:.95rem}
+
+  /* ---------- arabic proof panel ---------- */
+  .ar{
+    margin-top:1.4rem;border:3px solid var(--ink);padding:clamp(1rem,3.5vw,1.6rem);
+    direction:rtl;text-align:right;
+    font-family:"Noto Naskh Arabic",serif;
+  }
+  .ar__tag{
+    display:inline-block;background:var(--ink);color:var(--paper);
+    padding:.2rem .6rem;font-size:.8rem;font-weight:700;margin-bottom:.7rem;
+  }
+  .ar h3{margin:0;font-size:clamp(1.3rem,4.5vw,1.9rem);line-height:1.4;font-weight:700}
+  .ar p{margin:.55rem 0 0;color:var(--ink-soft);font-size:1rem;line-height:1.9}
+  .ar__note{
+    direction:ltr;text-align:left;margin-top:1rem;padding-top:.8rem;
+    border-top:1px solid rgba(21,24,30,.3);
+    font-family:"Archivo",sans-serif;font-size:.86rem;color:var(--ink-soft);
+  }
+
+  /* ---------- reply coupon ---------- */
+  .coupon{
+    margin-top:1.4rem;border:3px dashed var(--ink);padding:clamp(1.1rem,4vw,2rem);
+    background:var(--paper-deep);
+  }
+  .coupon h2{
+    margin:0;font-stretch:66%;font-weight:900;text-transform:uppercase;
+    font-size:clamp(1.9rem,7vw,3.6rem);line-height:.95;
+  }
+  .coupon p{margin:.6rem 0 0;max-width:48ch;color:var(--ink-soft)}
+  .reply{
+    display:inline-flex;align-items:center;min-height:52px;margin-top:1.15rem;
+    background:var(--spot);color:#f4f1ea;padding:.6rem 1.3rem;
+    font-stretch:80%;font-weight:800;text-transform:uppercase;letter-spacing:.08em;
+    font-size:1rem;text-decoration:none;border:3px solid var(--ink);
+  }
+  .reply:hover{background:var(--ink);color:var(--paper)}
+  .reply:focus-visible,a:focus-visible{outline:3px solid var(--spot);outline-offset:3px}
+  .coupon__alt{margin-top:1rem;font-size:.9rem;color:var(--ink-soft)}
+  .coupon__alt a{
+    color:var(--ink);text-underline-offset:3px;
+    display:inline-flex;align-items:center;min-height:44px;
+  }
+
+  /* ---------- colophon ---------- */
+  .colophon{
+    margin:2.6rem 0 0;border-top:3px solid var(--rule);padding:.7rem 0 2.5rem;
+    display:flex;flex-wrap:wrap;gap:.4rem 1.4rem;justify-content:space-between;
+    font-stretch:80%;font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--ink-soft);
+  }
+  .colophon a{color:var(--ink)}
+
+  @media (prefers-reduced-motion:reduce){
+    h1 .reg{animation:none;transform:none;opacity:0}
+    *{transition:none!important}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="plate">
+    <div class="plate__plateline">
+      <span>Web development &middot; Cairo</span>
+      <span>Available for work</span>
+    </div>
+
+    <h1 data-name="Ahmed Khalil">Ahmed Khalil</h1>
+    <div class="plate__rules" aria-hidden="true"></div>
+
+    <p class="standfirst">
+      I build bilingual websites for firms, and fix the parts that
+      <em>quietly break</em> on everyone else's.
+    </p>
+    <p class="plate__meta">
+      English and Arabic, right to left done properly. Below is one live client
+      site, itemised: what was wrong, what I did, what it measured afterwards.
+    </p>
+  </header>
+
+  <!-- ======== THE JOB ======== -->
+  <section class="band" aria-labelledby="job">
+    <div class="band__head">
+      <h2 id="job" style="margin:0;font:inherit">The job</h2>
+      <span class="ref">Notice 001</span>
+    </div>
+
+    <article class="notice">
+      <div class="notice__bar">
+        <span class="live">Live since 2026</span>
+        <span>Audit, tax &amp; advisory</span>
+        <span>English + العربية</span>
+      </div>
+      <div class="notice__body">
+        <h3 class="notice__client">Hany ElAraby &amp; Co</h3>
+        <p class="notice__sub">
+          An Egyptian firm of chartered accountants and registered auditors.
+          Complete bilingual site: services, sectors, careers with CV intake,
+          and a contact pipeline that reaches a real inbox.
+        </p>
+        <a class="notice__link" href="https://hanyelaraby.com" target="_blank" rel="noopener">
+          hanyelaraby.com&nbsp;&rarr;
+        </a>
+
+        <ol class="items">
+          <li class="item">
+            <span class="item__no">01</span>
+            <div>
+              <p class="item__what">Every email the firm sent was unauthenticated.</p>
+              <p class="item__how">
+                The domain had no SPF record and no DMARC record at all, so
+                mail from it, including form submissions, was landing in spam.
+                Diagnosed against public DNS rather than the host's own panel,
+                then added both records at the zone.
+              </p>
+              <span class="item__result">Authenticated &middot; verified in public DNS</span>
+            </div>
+          </li>
+
+          <li class="item">
+            <span class="item__no">02</span>
+            <div>
+              <p class="item__what">The contact and CV forms had nowhere to go.</p>
+              <p class="item__how">
+                A static site with no backend. Built a PHP mail pipeline with
+                file attachments for CVs, honeypot and timing checks instead of
+                a CAPTCHA, header-injection stripping, and separate routing so
+                applications reach HR and enquiries reach the business inbox.
+              </p>
+              <span class="item__result">Tested end to end against the live endpoint</span>
+            </div>
+          </li>
+
+          <li class="item">
+            <span class="item__no">03</span>
+            <div>
+              <p class="item__what">The site was unusable on an iPhone in ways no emulator showed.</p>
+              <p class="item__how">
+                iOS Safari withholds click events from elements it doesn't treat
+                as interactive, so cards that passed every desktop test did
+                nothing under a real thumb. Separately, every form field was
+                under 16px, which makes Safari zoom in on focus and never zoom
+                back out.
+              </p>
+              <span class="item__result">24 undersized tap targets &rarr; 0</span>
+            </div>
+          </li>
+
+          <li class="item">
+            <span class="item__no">04</span>
+            <div>
+              <p class="item__what">Visitors kept being served an old copy of the site.</p>
+              <p class="item__how">
+                Deploys reported success while phones still showed a build hours
+                old. The host's cache was replaying stale pages and ignoring
+                <code>Cache-Control</code> entirely, which the response headers
+                prove. Fixed with <code>X-Accel-Expires</code>, which it does
+                honour.
+              </p>
+              <span class="item__result">Deploys now reach visitors immediately</span>
+            </div>
+          </li>
+
+          <li class="item">
+            <span class="item__no">05</span>
+            <div>
+              <p class="item__what">Search engines had almost nothing to work with.</p>
+              <p class="item__how">
+                No sitemap, no robots file, no canonical tags, no structured
+                data, and HTTP served alongside HTTPS as duplicate content.
+                Added the full technical layer, including hreflang across both
+                locales so the Arabic and English pages stop competing.
+              </p>
+              <span class="item__result">18 pages indexed cleanly, two languages</span>
+            </div>
+          </li>
+
+          <li class="item">
+            <span class="item__no">06</span>
+            <div>
+              <p class="item__what">Text that failed to meet contrast minimums.</p>
+              <p class="item__how">
+                The one cue telling phone users the sector cards opened was the
+                least readable thing on the card, at 2.8:1, below the
+                accessibility floor. Raised it, and audited every colour pair on
+                the site rather than just that one.
+              </p>
+              <span class="item__result">2.8:1 &rarr; 5.32:1</span>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </article>
+  </section>
+
+  <!-- ======== ARABIC PROOF ======== -->
+  <section class="band" aria-labelledby="bilingual">
+    <div class="band__head">
+      <h2 id="bilingual" style="margin:0;font:inherit">Both languages, properly</h2>
+      <span class="ref">ثنائي اللغة</span>
+    </div>
+
+    <div class="ar" lang="ar" dir="rtl">
+      <span class="ar__tag">إشعار ٠٠١ — القاهرة</span>
+      <h3>هاني العربي وشركاه — المراجعة والضرائب والاستشارات</h3>
+      <p>
+        موقع كامل بالعربية والإنجليزية، من اليمين إلى اليسار.
+      </p>
+      <p class="ar__note">
+        Arabic isn't the English layout flipped. Direction-aware spacing, mirrored
+        icons and controls, Arabic numerals where they belong, and a font stack
+        that renders Naskh properly. Checked on real devices in both
+        directions, not just in a browser's RTL toggle.
+      </p>
+    </div>
+  </section>
+
+  <!-- ======== WHAT I DO ======== -->
+  <section class="band" aria-labelledby="services">
+    <div class="band__head">
+      <h2 id="services" style="margin:0;font:inherit">What I take on</h2>
+      <span class="ref">Classified</span>
+    </div>
+
+    <div class="cols">
+      <div class="entry">
+        <p class="entry__t">New site, built from scratch</p>
+        <p class="entry__d">
+          Design and build for firms and small businesses. Bilingual if you need
+          it. Yours to own: the code lives in your account, not mine.
+        </p>
+      </div>
+      <div class="entry">
+        <p class="entry__t">Arabic added to a site you already have</p>
+        <p class="entry__d">
+          Full right-to-left, not a translation plugin bolted onto a left-to-right
+          layout.
+        </p>
+      </div>
+      <div class="entry">
+        <p class="entry__t">"Our emails go to spam"</p>
+        <p class="entry__d">
+          SPF, DKIM and DMARC set up and verified against public DNS, so the mail
+          you send is actually trusted.
+        </p>
+      </div>
+      <div class="entry">
+        <p class="entry__t">"It looks wrong on my phone"</p>
+        <p class="entry__d">
+          Tested on real devices in both languages: tap targets, contrast,
+          zoom traps, the things desktop testing never catches.
+        </p>
+      </div>
+      <div class="entry">
+        <p class="entry__t">"We're invisible on Google"</p>
+        <p class="entry__d">
+          Sitemap, robots, canonical and hreflang tags, structured data, HTTPS.
+          The technical layer search engines need before anything else helps.
+        </p>
+      </div>
+      <div class="entry">
+        <p class="entry__t">Forms that reach a real person</p>
+        <p class="entry__d">
+          Contact and application forms with spam filtering, file attachments,
+          and routing to the right inbox, tested end to end.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======== HOW I WORK ======== -->
+  <section class="band" aria-labelledby="method">
+    <div class="band__head">
+      <h2 id="method" style="margin:0;font:inherit">How I check my own work</h2>
+      <span class="ref">Method</span>
+    </div>
+
+    <div class="cols">
+      <div class="entry">
+        <p class="entry__t">Measured, not eyeballed</p>
+        <p class="entry__d">
+          Contrast ratios computed, tap targets measured in pixels, page weight
+          counted. Every number on this page came from a measurement taken, not
+          an impression.
+        </p>
+      </div>
+      <div class="entry">
+        <p class="entry__t">Checked on the live site, not my laptop</p>
+        <p class="entry__d">
+          A cache bug on the HELCO job taught me that testing with a
+          cache-busting URL proves nothing about what a visitor receives. I
+          verify the plain address, the one people actually type.
+        </p>
+      </div>
+      <div class="entry">
+        <p class="entry__t">Written down so it can be checked</p>
+        <p class="entry__d">
+          Every change is committed with the reason it was made, so you or the
+          next developer can see why something is the way it is.
+        </p>
+      </div>
+      <div class="entry">
+        <p class="entry__t">Automatic link checking</p>
+        <p class="entry__d">
+          A crawler written for the project walks every page in both languages
+          before each release. The HELCO site ships with zero dead links or
+          dead anchors across 18 pages.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======== REPLY ======== -->
+  <section class="band" aria-labelledby="reply">
+    <div class="band__head">
+      <h2 id="reply" style="margin:0;font:inherit">Replies</h2>
+      <span class="ref">Box 001</span>
+    </div>
+
+    <div class="coupon">
+      <h2>Tell me what's broken</h2>
+      <p>
+        Or what you want built. A sentence or two about your firm and what the
+        site needs to do is enough to start. I'll tell you honestly whether
+        it's a job I can do well.
+      </p>
+      <a class="reply" href="mailto:ahmedmohamedkhalilx@gmail.com?subject=Website%20enquiry">
+        ahmedmohamedkhalilx@gmail.com
+      </a>
+      <p class="coupon__alt">
+        Code from the job above:
+        <a href="https://github.com/helco-co/helco-co.github.io" target="_blank" rel="noopener">github.com/helco-co</a>
+      </p>
+    </div>
+  </section>
+
+  <footer class="colophon">
+    <span>Ahmed Khalil &middot; Cairo, Egypt</span>
+    <span>Set in Archivo &amp; Noto Naskh Arabic</span>
+  </footer>
+
+</div>
+</body>
+</html>
