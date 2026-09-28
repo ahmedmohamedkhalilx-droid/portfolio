@@ -61,6 +61,8 @@ One primary action: start a conversation. Email is the channel.
 - No invented testimonials, client counts, prices, or availability claims.
 - Every metric on the surface must trace to a measurement actually taken.
 - Client is named with permission (confirmed 2026-09-28).
+- No source-code links and no code on the surface. The audience buys an
+  outcome, not a repository; findings are stated in plain English.
 
 ## Assumptions to confirm
 
